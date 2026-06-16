@@ -17,3 +17,21 @@ Concepts:
 
 Source: FreeCodeCamp
 */
+
+/*
+Concepts Used:
+- String Methods
+- split()
+- Arrays
+- Number Conversion
+- Array Sorting
+- Compare Functions
+*/
+
+
+function sortNumbers(str) {
+  return str
+    .split(",")
+    .map(Number)
+    .sort((a, b) => a - b);
+}
