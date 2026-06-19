@@ -22,3 +22,35 @@ Concepts:
 
 Source: FreeCodeCamp
 */
+
+
+function britishToAmerican(sentence) {
+  const dictionary = {
+    colour: "color",
+    flavour: "flavor",
+    honour: "honor",
+    neighbour: "neighbor",
+    labour: "labor",
+    humour: "humor",
+    centre: "center",
+    fibre: "fiber",
+    defence: "defense",
+    offence: "offense",
+    organise: "organize",
+    recognise: "recognize",
+    analyse: "analyze"
+  };
+
+  const regex = new RegExp(Object.keys(dictionary).join("|"), "gi");
+
+  return sentence.replace(regex, match => {
+    let replacement = dictionary[match.toLowerCase()];
+
+    // Preserve first-letter capitalization
+    if (match[0] === match[0].toUpperCase()) {
+      replacement = replacement[0].toUpperCase() + replacement.slice(1);
+    }
+
+    return replacement;
+  });
+}
