@@ -13,7 +13,7 @@ form.addEventListener("submit" , function(e){
 
     const result = document.querySelector("#result");
 
-    const BMI = weight / (height*height)
+    const BMI = weight / ((height*0.0254)*(height*0.0254))
 
     if(height == "" || height < 0 || isNaN(height)){
 
@@ -58,6 +58,7 @@ form.addEventListener("submit" , function(e){
 
             container.style.backgroundColor = "red";
 
+            body.style.backgroundColor = "red";
             result.innerHTML = `Overweight , Your BMI is ${BMI.toFixed(2)}`;
 
         }
