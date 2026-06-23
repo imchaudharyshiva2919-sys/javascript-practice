@@ -59,11 +59,19 @@ function checkGuess(guess) {
     }
 
     else if (guess < randomNumber) {
-        displayMessage("📉 Number is too low");
+        if(guess + 10 < randomNumber){
+            displayMessage("📉 Number is too low");
+        } else{
+            displayMessage("📉 Number is low");
+        }
     }
 
     else {
-        displayMessage("📈 Number is too high");
+        if(guess -10 > randomNumber){
+            displayMessage("📈 Number is too high");
+        } else{
+            displayMessage("📈 Number is high");
+        }
     }
 }
 
