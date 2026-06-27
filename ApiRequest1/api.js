@@ -1,20 +1,41 @@
 const requestUrl = "https://api.github.com/users/shivamChaudhary19";
 
-let info = document.querySelector(".info");
-let profile = document.querySelector(".profile");
+const card = document.querySelector(".card");
+const profile = document.querySelector(".profile");
+const info = document.querySelector(".info");
 
-const xhr = new XMLHttpRequest();
+const showBtn = document.querySelector(".button");
+const hideBtn = document.querySelector(".hide");
 
-xhr.open("GET" , requestUrl);
+showBtn.addEventListener("click", function () {
 
-xhr.onreadystatechange = function(){
-    if(xhr.readyState == 4){
-        const data = JSON.parse(this.responseText);
+    card.style.display = "block";
 
-        info.innerHTML = `<h3>Username : ${data.login}</h3><h4>Followers : ${data.followers}</h4>`
+    const xhr = new XMLHttpRequest();
 
-        profile.innerHTML = `<img src = "${data.avatar_url}">`
-    }
-}
-xhr.send();
- 
+    xhr.open("GET", requestUrl);
+
+    xhr.onreadystatechange = function () {
+
+        if (xhr.readyState === 4 && xhr.status === 200) {
+
+            const data = JSON.parse(xhr.responseText);
+
+            profile.innerHTML = `
+                <img src="${data.avatar_url}" alt="${data.login}">
+            `;
+
+            info.innerHTML = `
+                <h3>${data.name || data.login}</h3>
+                <p>Username: ${data.login}</p>
+                <p>Public Repos: ${data.public_repos}</p>
+            `;
+        }
+    };
+
+    xhr.send();
+});
+
+hideBtn.addEventListener("click", function () {
+    card.style.display = "none";
+});
