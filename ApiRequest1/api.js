@@ -15,24 +15,32 @@ showBtn.addEventListener("click", function () {
 
     xhr.open("GET", requestUrl);
 
-    xhr.onreadystatechange = function () {
+xhr.onreadystatechange = function () {
 
-        if (xhr.readyState === 4 && xhr.status === 200) {
+    if (xhr.readyState === 4) {
+
+        if (xhr.status === 200) {
 
             const data = JSON.parse(xhr.responseText);
 
-            profile.innerHTML = `
-                <img src="${data.avatar_url}" alt="${data.login}">
-            `;
+            profile.innerHTML = `<img src="${data.avatar_url}" alt="${data.login}">`;
 
             info.innerHTML = `
                 <h3>${data.name || data.login}</h3>
-                <p>Username: ${data.login}</p>
                 <p>Public Repos: ${data.public_repos}</p>
             `;
-        }
-    };
 
+        } else {
+
+            profile.innerHTML = "";
+
+            info.innerHTML = `
+                <p>❌ Failed to load profile.</p>
+                <p>Status: ${xhr.status}</p>
+            `;
+        }
+    }
+};
     xhr.send();
 });
 
