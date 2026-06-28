@@ -8,40 +8,25 @@ const showBtn = document.querySelector(".button");
 const hideBtn = document.querySelector(".hide");
 
 showBtn.addEventListener("click", function () {
-
     card.style.display = "block";
 
-    const xhr = new XMLHttpRequest();
-
-    xhr.open("GET", requestUrl);
-
-xhr.onreadystatechange = function () {
-
-    if (xhr.readyState === 4) {
-
-        if (xhr.status === 200) {
-
-            const data = JSON.parse(xhr.responseText);
-
+    fetch(requestUrl)
+        .then(response => response.json())
+        .then(data => {
             profile.innerHTML = `<img src="${data.avatar_url}" alt="${data.login}">`;
 
             info.innerHTML = `
                 <h3>${data.name || data.login}</h3>
                 <p>Public Repos: ${data.public_repos}</p>
             `;
-
-        } else {
-
+        })
+        .catch(error => {
             profile.innerHTML = "";
-
             info.innerHTML = `
                 <p>❌ Failed to load profile.</p>
-                <p>Status: ${xhr.status}</p>
+                <p>${error.message}</p>
             `;
-        }
-    }
-};
-    xhr.send();
+        });
 });
 
 hideBtn.addEventListener("click", function () {
